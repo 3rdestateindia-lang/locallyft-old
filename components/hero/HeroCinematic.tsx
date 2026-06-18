@@ -12,14 +12,21 @@ const DigitalWorld      = dynamic(() => import('./DigitalWorld'),      { ssr: fa
 const HeroCopy          = dynamic(() => import('./HeroCopy'),          { ssr: false })
 const Loader3D          = dynamic(() => import('./Loader3D'),          { ssr: false })
 
+const VIDEO_URL =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_074625_a81f018a-956b-43fb-9aee-4d1508e30e6a.mp4'
+
 export default function HeroCinematic() {
   const outerRef  = useRef<HTMLDivElement>(null)   // h-[500vh] scroll container
   const stickyRef = useRef<HTMLDivElement>(null)   // h-screen sticky panel
+  const videoRef  = useRef<HTMLVideoElement>(null) // world-reveal video
 
   const [scrollProgress, setScrollProgress] = useState(0)
   const [prefersReduced, setPrefersReduced]  = useState(false)
   const [sequenceReady, setSequenceReady]    = useState(false)
   const [loaderReady, setLoaderReady]        = useState(false)
+  const [showWorldText, setShowWorldText]    = useState(false)
+
+  const textTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const { isReady, drawFrame } = useImageSequence({
     onReady: () => setSequenceReady(true),
@@ -27,6 +34,8 @@ export default function HeroCinematic() {
 
   const { frameIndex, phase, phaseProgress } = useScrollPhase(scrollProgress)
   const isLoaded = sequenceReady && loaderReady
+
+  const isWorldReveal = phase === 'WORLD_REVEAL'
 
   useEffect(() => {
     const timer = window.setTimeout(() => setLoaderReady(true), 5000)
@@ -76,6 +85,37 @@ export default function HeroCinematic() {
     }
   }, [prefersReduced])
 
+  // ── Video play/pause synced to WORLD_REVEAL phase ──
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    if (isWorldReveal) {
+      // Reset & play video when entering WORLD_REVEAL
+      video.currentTime = 0
+      setShowWorldText(false)
+      if (textTimerRef.current) clearTimeout(textTimerRef.current)
+
+      video.play().catch(() => {/* autoplay policy — silent fail */})
+
+      // Show text after 1 real second of playback
+      textTimerRef.current = setTimeout(() => setShowWorldText(true), 1000)
+    } else {
+      // Pause & reset when leaving WORLD_REVEAL
+      video.pause()
+      video.currentTime = 0
+      setShowWorldText(false)
+      if (textTimerRef.current) {
+        clearTimeout(textTimerRef.current)
+        textTimerRef.current = null
+      }
+    }
+
+    return () => {
+      if (textTimerRef.current) clearTimeout(textTimerRef.current)
+    }
+  }, [isWorldReveal])
+
   // ── Reduced-motion fallback: static first frame ──
   if (prefersReduced) {
     return (
@@ -104,8 +144,8 @@ export default function HeroCinematic() {
 
   return (
     <>
-      {/* ── Outer scroll container (500vh) ── */}
-      <div ref={outerRef} style={{ height: '500vh', position: 'relative' }}>
+      {/* ── Outer scroll container (800vh) ── */}
+      <div ref={outerRef} style={{ height: '800vh', position: 'relative' }}>
 
         {/* ── Sticky cinematic viewport ── */}
         <div
@@ -156,10 +196,49 @@ export default function HeroCinematic() {
             phaseProgress={phaseProgress}
           />
 
+          {/* ── World-Reveal Video (layer 2.5) — fades in over globe on WORLD_REVEAL ── */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: 20,
+              opacity: isWorldReveal ? 1 : 0,
+              transition: 'opacity 0.8s ease',
+              pointerEvents: 'none',
+            }}
+          >
+            {/* Dark vignette so text stays readable over video */}
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                zIndex: 1,
+                background:
+                  'radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%)',
+              }}
+            />
+            <video
+              ref={videoRef}
+              src={VIDEO_URL}
+              muted
+              loop
+              playsInline
+              preload="auto"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          </div>
+
           {/* ── Hero Typography (layer 3) ── */}
           <HeroCopy
             phase={phase}
             phaseProgress={phaseProgress}
+            showWorldText={showWorldText}
           />
 
           {/* ── Minimal top nav ── */}

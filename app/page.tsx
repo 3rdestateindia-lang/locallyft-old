@@ -27,7 +27,7 @@ export default function Home() {
       {/* ── Main Site Content ── */}
       <ServicesSection />
       <ProcessSection />
-      <WhyUsSection />
+      {/* <WhyUsSection /> Hidden for launch */}
       <PortfolioSection />
       <TestimonialsSection />
       <PricingSection />
