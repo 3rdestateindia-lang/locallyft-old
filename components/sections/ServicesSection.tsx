@@ -245,24 +245,7 @@ function ServiceCard({ service, index, inView }: { service: typeof SERVICES[0]; 
         {service.desc}
       </p>
 
-      {/* Bottom arrow */}
-      <div
-        style={{
-          marginTop: 28,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          fontSize: 12,
-          fontWeight: 600,
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
-          color: hovered ? '#00d4ff' : 'rgba(255,255,255,0.25)',
-          transition: 'color 0.3s ease',
-        }}
-      >
-        Learn more
-        <span style={{ transform: hovered ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.3s ease', fontSize: 14 }}>→</span>
-      </div>
+
     </div>
   )
 }

@@ -1,11 +1,19 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Bodoni_Moda } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600'],
   variable: '--font-inter',
+  display: 'swap',
+})
+
+const bodoni = Bodoni_Moda({
+  subsets: ['latin'],
+  weight: ['700', '800', '900'],
+  style: ['normal', 'italic'],
+  variable: '--font-bodoni',
   display: 'swap',
 })
 
@@ -38,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable}`}>
+    <html lang="en" className={`${inter.variable} ${bodoni.variable}`}>
       <head>
         {/* Preload critical frames for fastest first paint */}
         <link rel="preload" as="image" href="/laptop-sequence/frame_0001.webp" />
