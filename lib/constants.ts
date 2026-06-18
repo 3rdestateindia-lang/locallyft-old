@@ -12,14 +12,14 @@ export function getFramePath(index: number): string {
 
 // ─── Scroll Phase Breakpoints (0→1) ─────────────────────────────────────────
 export const PHASES = {
-  INTRO:          { start: 0.00, end: 0.03 }, // static hold
-  OPENING:        { start: 0.03, end: 0.22 }, // lid lifts
-  KEYBOARD_GLOW:  { start: 0.22, end: 0.28 }, // backlight on
-  SCREEN_ON:      { start: 0.28, end: 0.38 }, // screen ignites
-  HOLOGRAPHIC:    { start: 0.38, end: 0.45 }, // UI overlays
-  ZOOM_IN:        { start: 0.45, end: 0.55 }, // camera zooms
-  FILL:           { start: 0.55, end: 0.60 }, // fills viewport
-  WORLD_REVEAL:   { start: 0.60, end: 1.00 }, // digital world
+  INTRO:          { start: 0.00, end: 0.04 }, // static hold
+  OPENING:        { start: 0.04, end: 0.28 }, // lid lifts
+  KEYBOARD_GLOW:  { start: 0.28, end: 0.35 }, // backlight on
+  SCREEN_ON:      { start: 0.35, end: 0.48 }, // screen ignites
+  HOLOGRAPHIC:    { start: 0.48, end: 0.57 }, // UI overlays
+  ZOOM_IN:        { start: 0.57, end: 0.70 }, // camera zooms
+  FILL:           { start: 0.70, end: 0.76 }, // fills viewport
+  WORLD_REVEAL:   { start: 0.76, end: 1.00 }, // digital world
 } as const
 
 export type PhaseName = keyof typeof PHASES

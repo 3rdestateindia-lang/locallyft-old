@@ -15,7 +15,6 @@ const HEADLINE = 'Your Business,\nPowered Online.'
 const SUBLINE = 'We build fast, modern, SEO-optimised websites for clinics, hospitals, shops, cafes & local service businesses — so customers find you first.'
 const EYEBROW = 'LOCAL LYFT · DIGITAL SOLUTIONS FOR LOCAL INDIA'
 const CTA_TEXT = 'Get Your Website Now'
-const ZOOM_WORDS = ['GROW', 'RANK', 'CONVERT']
 
 function getCopyVisible(phase: PhaseName): boolean {
   return ['INTRO', 'OPENING', 'KEYBOARD_GLOW', 'SCREEN_ON', 'HOLOGRAPHIC'].includes(phase)
@@ -29,12 +28,10 @@ function getCopyOpacity(phase: PhaseName, pp: number): number {
 }
 
 export default function HeroCopy({ phase, phaseProgress, showWorldText = false }: HeroCopyProps) {
-  const zoomWords = useMemo(() => ZOOM_WORDS, [])
   const copyOpacity = getCopyOpacity(phase, phaseProgress)
   const copyTranslate = phase === 'ZOOM_IN' ? phaseProgress * -40 : 0
 
   const showCopy = getCopyVisible(phase)
-  const showZoom = phase === 'ZOOM_IN' || phase === 'FILL'
   // Only show world copy once 1s of video has elapsed (controlled by parent)
   const showWorld = phase === 'WORLD_REVEAL' && showWorldText
 
@@ -172,39 +169,7 @@ export default function HeroCopy({ phase, phaseProgress, showWorldText = false }
         </AnimatePresence>
       </div>
 
-      {/* ── Zoom 3D text (passes camera) ── */}
-      <AnimatePresence>
-        {showZoom && (
-          <motion.div
-            key="zoom-text"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: phase === 'FILL' ? 1 - phaseProgress : phaseProgress }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.1, ease: 'linear' }}
-            className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center overflow-hidden text-center"
-            style={{ perspective: 900 }}
-          >
-            {zoomWords.map((word, index) => {
-              const lane = index - 1
-              const depth = phaseProgress * 520 + index * 120
-              return (
-                <motion.span
-                  key={word}
-                  className="absolute text-3xl font-semibold uppercase text-transparent sm:text-5xl md:text-6xl"
-                  style={{
-                    WebkitTextStroke: '1px rgba(80,230,255,0.75)',
-                    transform: `translate3d(${lane * 18}vw, ${lane * 14}vh, ${depth}px) rotateY(${lane * -16}deg)`,
-                    opacity: Math.max(0, 1 - phaseProgress * 0.65),
-                    textShadow: '0 0 34px rgba(0,212,255,0.36)',
-                  }}
-                >
-                  {word}
-                </motion.span>
-              )
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       {/* ── World Reveal copy ── */}
       <AnimatePresence>

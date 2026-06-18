@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import LocalLyftLogo from '@/components/LocalLyftLogo'
 
 const NAV_LINKS = [
   { label: 'Services', href: '#services' },
@@ -72,26 +73,8 @@ export default function FooterSection() {
         >
           {/* Brand */}
           <div style={{ maxWidth: 320 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-              <div
-                style={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: '50%',
-                  border: '1px solid rgba(0,212,255,0.4)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'linear-gradient(135deg, rgba(0,212,255,0.08), rgba(123,97,255,0.08))',
-                  boxShadow: '0 0 20px rgba(0,212,255,0.1)',
-                }}
-              >
-                <span style={{ color: '#00d4ff', fontSize: 16, fontWeight: 700 }}>L</span>
-              </div>
-              <div>
-                <div style={{ color: 'rgba(255,255,255,0.9)', fontSize: 15, fontWeight: 700, letterSpacing: '0.08em' }}>LOCAL LYFT</div>
-                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Digital Solutions</div>
-              </div>
+            <div style={{ marginBottom: 20 }}>
+              <LocalLyftLogo size={38} variant="full" glow animated />
             </div>
             <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', lineHeight: 1.75 }}>
               We help local businesses across India compete online with modern, affordable, SEO-optimised websites.

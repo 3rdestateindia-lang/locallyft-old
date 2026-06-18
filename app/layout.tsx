@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Bodoni_Moda } from 'next/font/google'
+import dynamic from 'next/dynamic'
 import './globals.css'
 
 const inter = Inter({
@@ -16,6 +17,9 @@ const bodoni = Bodoni_Moda({
   variable: '--font-bodoni',
   display: 'swap',
 })
+
+// Navbar is client-only (uses scroll + IntersectionObserver)
+const Navbar = dynamic(() => import('@/components/Navbar'), { ssr: false })
 
 export const metadata: Metadata = {
   title: 'Local Lyft - Websites for Local Businesses',
@@ -56,6 +60,8 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/laptop-sequence/frame_0005.webp" />
       </head>
       <body className={`${inter.className} bg-void text-white antialiased`}>
+        {/* Global floating navbar */}
+        <Navbar />
         {children}
       </body>
     </html>

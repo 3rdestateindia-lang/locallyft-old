@@ -14,13 +14,11 @@ function lerp(a: number, b: number, t: number) {
 }
 
 function getWorldOpacity(phase: PhaseName, pp: number): number {
-  if (phase === 'FILL')         return lerp(0, 0.5, pp)
-  if (phase === 'WORLD_REVEAL') return lerp(0.5, 1, pp)
+  if (phase === 'WORLD_REVEAL') return lerp(0, 1, pp)
   return 0
 }
 
 function getWorldScale(phase: PhaseName, pp: number): number {
-  if (phase === 'FILL')         return lerp(1.08, 1.04, pp)
   if (phase === 'WORLD_REVEAL') return lerp(1.04, 1.0, pp)
   return 1.08
 }
@@ -28,13 +26,11 @@ function getWorldScale(phase: PhaseName, pp: number): number {
 function getUIOpacity(phase: PhaseName, pp: number): number {
   if (phase === 'HOLOGRAPHIC')  return lerp(0, 0.6, pp)
   if (phase === 'ZOOM_IN')      return lerp(0.6, 0.8, pp)
-  if (phase === 'FILL')         return lerp(0.8, 0.4, pp)
-  if (phase === 'WORLD_REVEAL') return lerp(0.4, 0.85, pp)
+  if (phase === 'FILL')         return lerp(0.8, 0, pp)
   return 0
 }
 
 function getGridOpacity(phase: PhaseName, pp: number): number {
-  if (phase === 'FILL') return lerp(0.15, 0.45, pp)
   if (phase === 'WORLD_REVEAL') return lerp(0, 0.7, pp)
   return 0
 }
@@ -49,8 +45,8 @@ export default function DigitalWorld({ phase, phaseProgress }: DigitalWorldProps
   const uiOpacity    = getUIOpacity(phase, phaseProgress)
   const gridOpacity  = getGridOpacity(phase, phaseProgress)
 
-  const isActive = phase === 'FILL' || phase === 'WORLD_REVEAL'
-  const showHud = phase === 'HOLOGRAPHIC' || phase === 'ZOOM_IN' || isActive
+  const isActive = phase === 'WORLD_REVEAL'
+  const showHud = phase === 'HOLOGRAPHIC' || phase === 'ZOOM_IN' || phase === 'FILL'
 
   // ── Particle System ──
   useEffect(() => {

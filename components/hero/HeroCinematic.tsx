@@ -42,6 +42,13 @@ export default function HeroCinematic() {
     return () => window.clearTimeout(timer)
   }, [])
 
+  // ── Notify global navbar when loading is complete ──
+  useEffect(() => {
+    if (isLoaded) {
+      window.dispatchEvent(new CustomEvent('locallyft:loaded'))
+    }
+  }, [isLoaded])
+
   // ── Detect reduced-motion preference ──
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -177,7 +184,7 @@ export default function HeroCinematic() {
           {/* ── Canvas Image Sequence (layer 0) ── */}
           <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
             <CanvasSequence
-              currentFrame={frameIndex}
+              currentFrame={Math.min(111, frameIndex)}
               drawFrame={drawFrame}
               isReady={isReady}
             />
@@ -240,75 +247,6 @@ export default function HeroCinematic() {
             phaseProgress={phaseProgress}
             showWorldText={showWorldText}
           />
-
-          {/* ── Minimal top nav ── */}
-          <nav
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              zIndex: 40,
-              padding: '28px 40px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              opacity: ['ZOOM_IN', 'FILL', 'WORLD_REVEAL'].includes(phase)
-                ? Math.max(0, 1 - phaseProgress * 2)
-                : 1,
-              transition: 'opacity 0.1s linear',
-            }}
-          >
-            {/* Logo monogram */}
-            <div className="flex items-center gap-2.5">
-              <div
-                style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: '50%',
-                  border: '1px solid rgba(0,212,255,0.4)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'rgba(0,212,255,0.04)',
-                }}
-              >
-                <span style={{ color: '#00d4ff', fontSize: 12, fontWeight: 500 }}>L</span>
-              </div>
-              <span
-                style={{
-                  color: 'rgba(255,255,255,0.75)',
-                  fontSize: 13,
-                  fontWeight: 400,
-                  letterSpacing: '0.08em',
-                }}
-              >
-                LOCAL LYFT
-              </span>
-            </div>
-
-            {/* Nav items */}
-            <div className="hidden md:flex items-center gap-8">
-              {['Services', 'Portfolio', 'Pricing', 'Contact'].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  style={{
-                    color: 'rgba(255,255,255,0.45)',
-                    fontSize: 12,
-                    letterSpacing: '0.12em',
-                    textTransform: 'uppercase',
-                    textDecoration: 'none',
-                    transition: 'color 0.2s',
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.9)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-          </nav>
 
           {/* ── Progress indicator (thin line at bottom) ── */}
           <div
