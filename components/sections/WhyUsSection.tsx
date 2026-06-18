@@ -67,7 +67,7 @@ function StatCard({ stat, active, index }: { stat: typeof STATS[0]; active: bool
     <div
       style={{
         textAlign: 'center',
-        padding: '32px 24px',
+        padding: 'clamp(20px, 3vw, 32px) clamp(12px, 2vw, 24px)',
         borderRadius: 16,
         background: 'linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))',
         border: '1px solid rgba(255,255,255,0.06)',
@@ -244,7 +244,7 @@ export default function WhyUsSection() {
       ref={ref}
       style={{
         background: 'linear-gradient(180deg, #050505 0%, #07090f 50%, #050505 100%)',
-        padding: '120px 24px',
+        padding: 'clamp(64px, 10vw, 120px) 20px',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -271,10 +271,10 @@ export default function WhyUsSection() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: 56,
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))',
+            gap: 'clamp(32px, 5vw, 56px)',
             alignItems: 'center',
-            marginBottom: 80,
+            marginBottom: 'clamp(40px, 6vw, 80px)',
           }}
         >
           {/* Left Column: Text + Differentiators */}
@@ -360,10 +360,10 @@ export default function WhyUsSection() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-            gap: 20,
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(160px, 100%), 1fr))',
+            gap: 16,
             borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-            paddingTop: 60,
+            paddingTop: 'clamp(32px, 5vw, 60px)',
           }}
         >
           {STATS.map((stat, i) => (

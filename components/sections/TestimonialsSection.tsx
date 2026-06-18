@@ -75,7 +75,7 @@ export default function TestimonialsSection() {
       ref={ref}
       style={{
         background: 'linear-gradient(180deg, #050505 0%, #080c12 50%, #050505 100%)',
-        padding: '120px 0',
+        padding: 'clamp(64px, 10vw, 120px) 0',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -141,10 +141,23 @@ export default function TestimonialsSection() {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        {/* Left fade */}
-        <div aria-hidden="true" style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 120, background: 'linear-gradient(90deg, #050505, transparent)', zIndex: 10, pointerEvents: 'none' }} />
+        {/* Left fade — narrower on mobile so cards stay readable */}
+        <div aria-hidden="true" className="testimonial-fade-left" style={{ position: 'absolute', left: 0, top: 0, bottom: 0, background: 'linear-gradient(90deg, #050505, transparent)', zIndex: 10, pointerEvents: 'none' }} />
         {/* Right fade */}
-        <div aria-hidden="true" style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 120, background: 'linear-gradient(270deg, #050505, transparent)', zIndex: 10, pointerEvents: 'none' }} />
+        <div aria-hidden="true" className="testimonial-fade-right" style={{ position: 'absolute', right: 0, top: 0, bottom: 0, background: 'linear-gradient(270deg, #050505, transparent)', zIndex: 10, pointerEvents: 'none' }} />
+
+        <style>{`
+          .testimonial-fade-left, .testimonial-fade-right { width: 40px; }
+          @media (min-width: 640px) {
+            .testimonial-fade-left, .testimonial-fade-right { width: 80px; }
+          }
+          @media (min-width: 1024px) {
+            .testimonial-fade-left, .testimonial-fade-right { width: 120px; }
+          }
+          .testimonial-card { width: 280px; }
+          @media (min-width: 640px) { .testimonial-card { width: 320px; } }
+          @media (min-width: 1024px) { .testimonial-card { width: 340px; } }
+        `}</style>
 
         <div
           style={{
@@ -178,10 +191,10 @@ function TestimonialCard({ testimonial }: { testimonial: typeof TESTIMONIALS[0] 
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      className="testimonial-card"
       style={{
-        width: 340,
         flexShrink: 0,
-        padding: '28px 28px',
+        padding: 'clamp(18px, 3vw, 28px)',
         borderRadius: 20,
         background: hovered
           ? 'linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03))'

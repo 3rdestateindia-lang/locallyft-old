@@ -77,7 +77,7 @@ export default function ServicesSection() {
       ref={ref}
       style={{
         background: 'linear-gradient(180deg, #050505 0%, #080c12 40%, #050505 100%)',
-        padding: '120px 24px',
+        padding: 'clamp(64px, 10vw, 120px) 20px',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -106,7 +106,7 @@ export default function ServicesSection() {
         <div
           style={{
             textAlign: 'center',
-            marginBottom: 72,
+            marginBottom: 56,
             opacity: inView ? 1 : 0,
             transform: inView ? 'translateY(0)' : 'translateY(32px)',
             transition: 'opacity 0.8s ease, transform 0.8s ease',
@@ -121,19 +121,19 @@ export default function ServicesSection() {
               textTransform: 'uppercase',
               color: '#00d4ff',
               textShadow: '0 0 18px rgba(0,212,255,0.5)',
-              marginBottom: 20,
+              marginBottom: 16,
             }}
           >
             What We Build
           </span>
           <h2
             style={{
-              fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+              fontSize: 'clamp(1.8rem, 5vw, 3.5rem)',
               fontWeight: 700,
-              lineHeight: 1.08,
+              lineHeight: 1.1,
               letterSpacing: '-0.03em',
               color: '#ffffff',
-              marginBottom: 20,
+              marginBottom: 16,
             }}
           >
             Websites Built for{' '}
@@ -148,19 +148,26 @@ export default function ServicesSection() {
               Every Local Business
             </span>
           </h2>
-          <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.55)', maxWidth: 560, margin: '0 auto', lineHeight: 1.7 }}>
+          <p style={{ fontSize: 'clamp(14px, 2.5vw, 17px)', color: 'rgba(255,255,255,0.55)', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>
             Whatever your business type — we craft a digital presence that turns visitors into loyal customers.
           </p>
         </div>
 
-        {/* Cards grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: 24,
-          }}
-        >
+        {/* Cards grid — single column on mobile, multi on wider */}
+        <style>{`
+          .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          @media (min-width: 540px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+          }
+          @media (min-width: 900px) {
+            .services-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+          }
+        `}</style>
+        <div className="services-grid">
           {SERVICES.map((s, i) => (
             <ServiceCard key={s.title} service={s} index={i} inView={inView} />
           ))}
@@ -182,7 +189,7 @@ function ServiceCard({ service, index, inView }: { service: typeof SERVICES[0]; 
         transform: inView ? 'translateY(0)' : 'translateY(40px)',
         position: 'relative',
         borderRadius: 20,
-        padding: '36px 32px',
+        padding: 'clamp(20px, 4vw, 36px) clamp(16px, 3vw, 28px)',
         background: hovered
           ? 'linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))'
           : 'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))',
@@ -199,15 +206,15 @@ function ServiceCard({ service, index, inView }: { service: typeof SERVICES[0]; 
       <span
         style={{
           position: 'absolute',
-          top: 20,
-          right: 20,
+          top: 16,
+          right: 16,
           fontSize: 10,
           fontWeight: 600,
           letterSpacing: '0.14em',
           textTransform: 'uppercase',
           color: 'rgba(255,255,255,0.35)',
           border: '1px solid rgba(255,255,255,0.1)',
-          padding: '3px 10px',
+          padding: '3px 8px',
           borderRadius: 20,
         }}
       >
@@ -217,8 +224,8 @@ function ServiceCard({ service, index, inView }: { service: typeof SERVICES[0]; 
       {/* Icon */}
       <div
         style={{
-          fontSize: 40,
-          marginBottom: 20,
+          fontSize: 36,
+          marginBottom: 16,
           display: 'inline-block',
           filter: hovered ? 'drop-shadow(0 0 12px rgba(0,212,255,0.4))' : 'none',
           transition: 'filter 0.3s ease',
@@ -230,10 +237,10 @@ function ServiceCard({ service, index, inView }: { service: typeof SERVICES[0]; 
 
       <h3
         style={{
-          fontSize: 20,
+          fontSize: 'clamp(16px, 2.5vw, 20px)',
           fontWeight: 600,
           color: hovered ? '#ffffff' : 'rgba(255,255,255,0.9)',
-          marginBottom: 12,
+          marginBottom: 10,
           letterSpacing: '-0.02em',
           transition: 'color 0.3s ease',
         }}
@@ -241,11 +248,9 @@ function ServiceCard({ service, index, inView }: { service: typeof SERVICES[0]; 
         {service.title}
       </h3>
 
-      <p style={{ fontSize: 14.5, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, transition: 'color 0.3s ease' }}>
+      <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, transition: 'color 0.3s ease' }}>
         {service.desc}
       </p>
-
-
     </div>
   )
 }

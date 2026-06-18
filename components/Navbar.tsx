@@ -131,7 +131,7 @@ export default function Navbar() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '10px 20px 10px 16px',
+            padding: '10px 14px 10px 12px',
             borderRadius: 100,
             background: scrolled
               ? 'rgba(5,5,5,0.85)'
@@ -145,6 +145,7 @@ export default function Navbar() {
               ? '0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)'
               : '0 4px 20px rgba(0,0,0,0.2)',
             transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
+            gap: 8,
           }}
         >
           {/* Logo */}
@@ -176,9 +177,10 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button — hidden on mobile (hamburger only) */}
           <a
             href="#contact"
+            className="nav-cta-btn"
             style={{
               display: 'inline-flex',
               alignItems: 'center',

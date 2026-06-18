@@ -152,7 +152,12 @@ export default function HeroCinematic() {
   return (
     <>
       {/* ── Outer scroll container (800vh) ── */}
-      <div ref={outerRef} style={{ height: '800vh', position: 'relative' }}>
+      {/* Responsive scroll height via style tag */}
+      <style>{`
+        #hero-scroll { height: 800vh; }
+        @media (max-width: 768px) { #hero-scroll { height: 500vh; } }
+      `}</style>
+      <div id="hero-scroll" ref={outerRef} style={{ position: 'relative' }}>
 
         {/* ── Sticky cinematic viewport ── */}
         <div

@@ -35,7 +35,7 @@ export default function CTASection() {
       ref={ref}
       style={{
         background: 'linear-gradient(180deg, #050505 0%, #06090f 100%)',
-        padding: '120px 24px 80px',
+        padding: 'clamp(64px, 10vw, 120px) 20px clamp(48px, 6vw, 80px)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -80,7 +80,7 @@ export default function CTASection() {
           </span>
           <h2
             style={{
-              fontSize: 'clamp(2.2rem, 5vw, 4rem)',
+              fontSize: 'clamp(1.8rem, 5vw, 4rem)',
               fontWeight: 800,
               lineHeight: 1.06,
               letterSpacing: '-0.04em',
@@ -185,7 +185,7 @@ export default function CTASection() {
             <div
               style={{
                 textAlign: 'center',
-                padding: '60px 40px',
+                padding: 'clamp(32px, 5vw, 60px) clamp(20px, 4vw, 40px)',
                 borderRadius: 24,
                 background: 'linear-gradient(135deg, rgba(0,212,255,0.06), rgba(123,97,255,0.06))',
                 border: '1px solid rgba(0,212,255,0.2)',
@@ -204,7 +204,7 @@ export default function CTASection() {
                 background: 'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))',
                 border: '1px solid rgba(255,255,255,0.09)',
                 borderRadius: 24,
-                padding: '48px 40px',
+                padding: 'clamp(28px, 5vw, 48px) clamp(16px, 4vw, 40px)',
                 backdropFilter: 'blur(20px)',
                 boxShadow: '0 20px 80px rgba(0,0,0,0.4)',
               }}

@@ -193,12 +193,12 @@ export default function HeroCopy({ phase, phaseProgress, showWorldText = false }
 
             {/* Headline — editorial bold serif */}
             <h2
-              className="max-w-5xl"
+              className="max-w-5xl px-4"
               style={{
                 fontFamily: 'var(--font-playfair), Georgia, serif',
-                fontSize: 'clamp(1.8rem, 3.2vw, 3rem)',
+                fontSize: 'clamp(1.5rem, 5vw, 3rem)',
                 fontWeight: 800,
-                lineHeight: 1.1,
+                lineHeight: 1.15,
                 letterSpacing: '-0.01em',
                 color: '#ffffff',
                 textShadow: '0 4px 32px rgba(0,0,0,0.82)',
@@ -212,12 +212,13 @@ export default function HeroCopy({ phase, phaseProgress, showWorldText = false }
             <p
               style={{
                 maxWidth: '42rem',
-                fontSize: 'clamp(0.85rem, 1.4vw, 1rem)',
+                fontSize: 'clamp(0.85rem, 2.5vw, 1rem)',
                 fontWeight: 400,
                 lineHeight: 1.65,
                 color: 'rgba(255,255,255,0.72)',
                 textShadow: '0 2px 18px rgba(0,0,0,0.7)',
                 margin: 0,
+                padding: '0 8px',
               }}
             >
               We build fast, trustworthy websites for clinics, hospitals, physiotherapy centers,
