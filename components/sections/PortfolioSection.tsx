@@ -128,16 +128,16 @@ export default function PortfolioSection() {
                 </span>
               ))}
             </div>
-            
+
             <h3 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 800, color: '#ffffff', marginBottom: 16, letterSpacing: '-0.02em' }}>
-              Physiocures Clinic
+              Physiocure Clinic
             </h3>
-            
+
             <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.6)', maxWidth: 650, lineHeight: 1.6, marginBottom: 28 }}>
-              A fully optimized, mobile-first website designed specifically for local healthcare. 
+              A fully optimized, mobile-first website designed specifically for local healthcare.
               Featuring seamless appointment scheduling, therapist profiles, and integrated SEO to drive real patient walk-ins.
             </p>
-            
+
             <a
               href="https://www.physiocures.in/"
               target="_blank"
@@ -199,31 +199,39 @@ export default function PortfolioSection() {
                 </div>
               </div>
             </div>
-            
+
             {/* Live Video Preview */}
             <div style={{ width: '100%', height: 'calc(100% - 36px)', position: 'relative', background: '#050505', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <video
-                src="/golu.mp4"
+                src="/golu.mp4?v=2"
                 autoPlay
                 loop
                 muted
                 playsInline
+                disablePictureInPicture
+                disableRemotePlayback
+                onEnded={(e) => {
+                  // Fallback to force loop in case the browser ignores the loop attribute
+                  e.currentTarget.currentTime = 0;
+                  e.currentTarget.play().catch(() => { });
+                }}
                 style={{
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover', // Ensures the video fills the frame beautifully without black bars
                   objectPosition: 'top',
+                  pointerEvents: 'none', // Prevents browser overlays (like PiP or translation tools) on hover
                 }}
               />
-              
+
               {/* Inner subtle glow to make the boundary feel premium */}
-              <div 
-                style={{ 
-                  position: 'absolute', 
-                  inset: 0, 
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
                   boxShadow: 'inset 0 0 20px rgba(0,212,255,0.15)',
                   pointerEvents: 'none'
-                }} 
+                }}
               />
             </div>
           </div>
