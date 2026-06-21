@@ -27,7 +27,7 @@ export default function PortfolioSection() {
       ref={ref}
       style={{
         background: 'linear-gradient(180deg, #050505 0%, #08090f 50%, #050505 100%)',
-        padding: '120px 24px',
+        padding: 'clamp(64px, 10vw, 120px) 20px',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -93,10 +93,10 @@ export default function PortfolioSection() {
             background: 'linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))',
             border: '1px solid rgba(255,255,255,0.08)',
             borderRadius: 24,
-            padding: '40px 24px',
+            padding: 'clamp(20px, 4vw, 40px) clamp(16px, 3vw, 24px)',
             display: 'flex',
             flexDirection: 'column',
-            gap: 40,
+            gap: 'clamp(20px, 4vw, 40px)',
             opacity: inView ? 1 : 0,
             transform: inView ? 'translateY(0)' : 'translateY(40px)',
             transition: 'all 0.8s ease 0.2s',

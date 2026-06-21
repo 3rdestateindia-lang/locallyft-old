@@ -61,7 +61,7 @@ export default function ProcessSection() {
       ref={ref}
       style={{
         background: '#050505',
-        padding: '120px 24px',
+        padding: 'clamp(64px, 10vw, 120px) 20px',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -85,7 +85,7 @@ export default function ProcessSection() {
         <div
           style={{
             textAlign: 'center',
-            marginBottom: 80,
+            marginBottom: 56,
             opacity: inView ? 1 : 0,
             transform: inView ? 'translateY(0)' : 'translateY(32px)',
             transition: 'opacity 0.8s ease, transform 0.8s ease',
@@ -137,7 +137,7 @@ export default function ProcessSection() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px, 100%), 1fr))',
             gap: 0,
             position: 'relative',
           }}
@@ -173,7 +173,7 @@ export default function ProcessSection() {
               {/* Step card */}
               <div
                 style={{
-                  padding: '40px 28px',
+                  padding: 'clamp(24px, 4vw, 40px) clamp(16px, 3vw, 28px)',
                   textAlign: 'center',
                   position: 'relative',
                   zIndex: 1,

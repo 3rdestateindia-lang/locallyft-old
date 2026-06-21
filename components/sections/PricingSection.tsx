@@ -36,7 +36,7 @@ export default function PricingSection() {
       ref={ref}
       style={{
         background: '#050505',
-        padding: '120px 24px',
+        padding: 'clamp(64px, 10vw, 120px) 20px',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -107,7 +107,7 @@ export default function PricingSection() {
           style={{
             position: 'relative',
             borderRadius: 24,
-            padding: '48px',
+            padding: 'clamp(24px, 5vw, 48px) clamp(16px, 4vw, 48px)',
             background: 'linear-gradient(160deg, rgba(0,212,255,0.06), rgba(123,97,255,0.06))',
             border: `1px solid ${hovered ? 'rgba(0,212,255,0.5)' : 'rgba(255,255,255,0.1)'}`,
             boxShadow: hovered 
@@ -166,7 +166,7 @@ export default function PricingSection() {
           <div style={{ width: '100%', height: 1, background: 'rgba(255,255,255,0.07)', marginBottom: 32 }} />
 
           {/* Features Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 16, width: '100%', marginBottom: 40, textAlign: 'left' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(250px, 100%), 1fr))', gap: 16, width: '100%', marginBottom: 40, textAlign: 'left' }}>
             {features.map(f => (
               <div key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, fontSize: 15, color: 'rgba(255,255,255,0.8)' }}>
                 <span style={{ color: '#00d4ff', fontSize: 16, flexShrink: 0, marginTop: 2 }}>✓</span>
@@ -182,7 +182,7 @@ export default function PricingSection() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: 8,
-              padding: '16px 40px',
+              padding: 'clamp(12px, 2vw, 16px) clamp(20px, 4vw, 40px)',
               borderRadius: 100,
               border: '1px solid rgba(0,212,255,0.4)',
               background: 'linear-gradient(90deg, rgba(0,212,255,0.2), rgba(123,97,255,0.2))',

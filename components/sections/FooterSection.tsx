@@ -15,7 +15,7 @@ const NAV_LINKS = [
 const SOCIAL_LINKS = [
   {
     label: 'Instagram',
-    href: '#',
+    href: 'https://www.instagram.com/locallyftindia/',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -52,7 +52,7 @@ export default function FooterSection() {
       style={{
         background: '#050505',
         borderTop: '1px solid rgba(255,255,255,0.06)',
-        padding: '64px 24px 40px',
+        padding: 'clamp(40px, 6vw, 64px) 20px clamp(28px, 4vw, 40px)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -61,16 +61,14 @@ export default function FooterSection() {
       <div aria-hidden="true" style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '40%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(0,212,255,0.2), transparent)' }} />
 
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+        <style>{`
+          .footer-top-row { display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between; margin-bottom: 40px; }
+          @media (min-width: 768px) { .footer-top-row { gap: 48px; margin-bottom: 56px; } }
+          .footer-bottom-row { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+          @media (min-width: 640px) { .footer-bottom-row { flex-direction: row; align-items: center; justify-content: space-between; gap: 16px; } }
+        `}</style>
         {/* Top row */}
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: 48,
-            justifyContent: 'space-between',
-            marginBottom: 56,
-          }}
-        >
+        <div className="footer-top-row">
           {/* Brand */}
           <div style={{ maxWidth: 320 }}>
             <div style={{ marginBottom: 20 }}>
@@ -127,9 +125,9 @@ export default function FooterSection() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               {[
-                { icon: '💬', text: 'WhatsApp: +91 99999 99999', href: 'https://wa.me/919999999999' },
-                { icon: '📞', text: 'Call: +91 99999 99999', href: 'tel:+919999999999' },
-                { icon: '📧', text: 'hello@locallyft.in', href: 'mailto:hello@locallyft.in' },
+                { icon: '💬', text: 'WhatsApp: +91 96505 40562', href: 'https://wa.me/919650540562' },
+                { icon: '📞', text: 'Call: +91 96505 40562', href: 'tel:+919650540562' },
+                { icon: '📧', text: '3rdestateindia@gmail.com', href: 'mailto:3rdestateindia@gmail.com' },
               ].map(item => (
                 <a
                   key={item.text}
@@ -157,17 +155,7 @@ export default function FooterSection() {
         </div>
 
         {/* Bottom row */}
-        <div
-          style={{
-            borderTop: '1px solid rgba(255,255,255,0.05)',
-            paddingTop: 28,
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: 16,
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
+        <div className="footer-bottom-row">
           <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.22)' }}>
             © {new Date().getFullYear()} Local Lyft. All rights reserved.
           </span>

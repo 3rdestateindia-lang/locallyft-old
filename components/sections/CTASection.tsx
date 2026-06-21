@@ -22,12 +22,36 @@ export default function CTASection() {
   const [form, setForm] = useState({ name: '', phone: '', business: '' })
   const [submitted, setSubmitted] = useState(false)
   const [focused, setFocused] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!form.name || !form.phone) return
-    setSubmitted(true)
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        alert('Failed to submit form.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Something went wrong.');
+    } finally {
+      setLoading(false);
+    }
+
+  };
 
   return (
     <section
@@ -35,7 +59,7 @@ export default function CTASection() {
       ref={ref}
       style={{
         background: 'linear-gradient(180deg, #050505 0%, #06090f 100%)',
-        padding: '120px 24px 80px',
+        padding: 'clamp(64px, 10vw, 120px) 20px clamp(48px, 6vw, 80px)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -80,7 +104,7 @@ export default function CTASection() {
           </span>
           <h2
             style={{
-              fontSize: 'clamp(2.2rem, 5vw, 4rem)',
+              fontSize: 'clamp(1.8rem, 5vw, 4rem)',
               fontWeight: 800,
               lineHeight: 1.06,
               letterSpacing: '-0.04em',
@@ -115,7 +139,7 @@ export default function CTASection() {
           {/* Quick contact buttons */}
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 64 }}>
             <a
-              href="https://wa.me/919999999999?text=Hi%20Local%20Lyft!%20I%27d%20like%20to%20discuss%20my%20website."
+              href="https://wa.me/919650540562?text=Hi%20Local%20Lyft!%20I%27d%20like%20to%20discuss%20my%20website."
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -139,7 +163,7 @@ export default function CTASection() {
               Chat on WhatsApp
             </a>
             <a
-              href="tel:+919999999999"
+              href="tel:+919650540562"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -185,7 +209,7 @@ export default function CTASection() {
             <div
               style={{
                 textAlign: 'center',
-                padding: '60px 40px',
+                padding: 'clamp(32px, 5vw, 60px) clamp(20px, 4vw, 40px)',
                 borderRadius: 24,
                 background: 'linear-gradient(135deg, rgba(0,212,255,0.06), rgba(123,97,255,0.06))',
                 border: '1px solid rgba(0,212,255,0.2)',
@@ -204,7 +228,7 @@ export default function CTASection() {
                 background: 'linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))',
                 border: '1px solid rgba(255,255,255,0.09)',
                 borderRadius: 24,
-                padding: '48px 40px',
+                padding: 'clamp(28px, 5vw, 48px) clamp(16px, 4vw, 40px)',
                 backdropFilter: 'blur(20px)',
                 boxShadow: '0 20px 80px rgba(0,0,0,0.4)',
               }}
@@ -246,9 +270,30 @@ export default function CTASection() {
                     placeholder={field.placeholder}
                     required={field.required}
                     value={form[field.key as keyof typeof form]}
-                    onChange={e => setForm(prev => ({ ...prev, [field.key]: e.target.value }))}
+                    onChange={e => {
+                      let value = e.target.value
+
+                      if (field.key === 'phone') {
+                        value = value
+                          .replace(/[^\d+]/g, '') // allow only digits and +
+                          .replace(/(?!^)\+/g, '') // allow + only at beginning
+                          .slice(0, 16) // max length (+ + 15 digits)
+                      }
+
+                      setForm(prev => ({
+                        ...prev,
+                        [field.key]: value,
+                      }))
+                    }}
                     onFocus={() => setFocused(field.key)}
                     onBlur={() => setFocused(null)}
+                    pattern={field.key === 'phone' ? '^\\+?[0-9]{10,15}$' : undefined}
+                    inputMode={field.key === 'phone' ? 'numeric' : undefined}
+                    title={
+                      field.key === 'phone'
+                        ? 'Please enter a valid phone number (10-15 digits)'
+                        : undefined
+                    }
                     style={{
                       width: '100%',
                       padding: '13px 18px',
@@ -276,22 +321,40 @@ export default function CTASection() {
                   color: '#050505',
                   fontSize: 15,
                   fontWeight: 700,
-                  cursor: 'pointer',
+                  cursor: loading ? 'not-allowed' : 'pointer',
                   marginTop: 12,
                   boxShadow: '0 0 40px rgba(0,212,255,0.3)',
                   transition: 'all 0.3s ease',
-                  letterSpacing: '0.02em',
+                  opacity: loading ? 0.9 : 1,
                 }}
                 onMouseEnter={e => {
                   (e.currentTarget as HTMLElement).style.boxShadow = '0 0 60px rgba(0,212,255,0.5)'
-                  ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
+                    ; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
                 }}
                 onMouseLeave={e => {
                   (e.currentTarget as HTMLElement).style.boxShadow = '0 0 40px rgba(0,212,255,0.3)'
-                  ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+                    ; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
                 }}
-              >
-                Book Free Call Now →
+              >{loading ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 10,
+                  }}
+                >
+                  <div className="thinking-loader">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+
+                  <span>Booking Your Call...</span>
+                </div>
+              ) : (
+                'Book Free Call Now →'
+              )}
               </button>
 
               <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.25)', marginTop: 18, lineHeight: 1.6 }}>
@@ -311,6 +374,43 @@ export default function CTASection() {
           0%, 100% { transform: translate(0, 0) scale(1); }
           50% { transform: translate(-20px, 20px) scale(1.03); }
         }
+        .thinking-loader {
+  display: flex;
+  gap: 6px;
+}
+
+.thinking-loader span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.95);
+  animation: thinkingPulse 1.2s infinite ease-in-out;
+  box-shadow:
+    0 0 10px rgba(255,255,255,0.7),
+    0 0 20px rgba(255,255,255,0.4);
+}
+
+.thinking-loader span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.thinking-loader span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes thinkingPulse {
+  0%,
+  80%,
+  100% {
+    transform: scale(1);
+    opacity: 0.25;
+  }
+
+  40% {
+    transform: scale(1.8);
+    opacity: 1;
+  }
+}  
       `}</style>
     </section>
   )
