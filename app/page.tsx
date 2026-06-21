@@ -17,8 +17,20 @@ const CTASection          = dynamic(() => import('@/components/sections/CTASecti
 const FooterSection       = dynamic(() => import('@/components/sections/FooterSection'),       { ssr: false })
 
 export default function Home() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'Local Lyft',
+    url: 'https://www.local-lyft.com',
+    description: 'Local Lyft creates modern websites for clinics, hospitals, physiotherapy centers, shops, cafes, and local service businesses. Earn trust, calls, bookings, and visits.',
+  }
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* ── Cinematic Hero (500vh scroll container) ── */}
       <div id="hero-cinematic">
         <HeroCinematic />

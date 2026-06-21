@@ -23,25 +23,57 @@ const bodoni = Bodoni_Moda({
 const Navbar = dynamic(() => import('@/components/Navbar'), { ssr: false })
 
 export const metadata: Metadata = {
-  title: 'Local Lyft - Websites for Local Businesses',
+  metadataBase: new URL('https://www.local-lyft.com'),
+  title: {
+    default: 'Local Lyft | Websites for Local Businesses',
+    template: '%s | Local Lyft',
+  },
   description:
-    'Local Lyft creates modern websites for clinics, hospitals, physiotherapy centers, shops, cafes, and local service businesses.',
+    'Local Lyft creates modern websites for clinics, hospitals, physiotherapy centers, shops, cafes, and local service businesses. Earn trust, calls, bookings, and visits.',
   keywords: [
     'local business websites',
     'clinic website design',
     'cafe website design',
     'shop website design',
     'physiotherapy website',
+    'web design agency',
     'Local Lyft',
   ],
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'Local Lyft - Websites for Local Businesses',
     description: 'Modern websites that help local businesses earn trust, calls, bookings, and visits.',
+    url: 'https://www.local-lyft.com',
+    siteName: 'Local Lyft',
+    locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Local Lyft Logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Local Lyft - Websites for Local Businesses',
+    description: 'Modern websites that help local businesses earn trust, calls, bookings, and visits.',
+    images: ['/opengraph-image.png'],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 
