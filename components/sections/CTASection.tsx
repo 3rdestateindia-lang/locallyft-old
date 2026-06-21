@@ -139,7 +139,7 @@ export default function CTASection() {
           {/* Quick contact buttons */}
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 64 }}>
             <a
-              href="https://wa.me/919999999999?text=Hi%20Local%20Lyft!%20I%27d%20like%20to%20discuss%20my%20website."
+              href="https://wa.me/919650540562?text=Hi%20Local%20Lyft!%20I%27d%20like%20to%20discuss%20my%20website."
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -163,7 +163,7 @@ export default function CTASection() {
               Chat on WhatsApp
             </a>
             <a
-              href="tel:+919999999999"
+              href="tel:+919650540562"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
