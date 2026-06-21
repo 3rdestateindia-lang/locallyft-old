@@ -75,6 +75,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  icons: {
+    icon: '/icon.svg',
+  },
 }
 
 export default function RootLayout({
@@ -91,6 +94,7 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/laptop-sequence/frame_0003.webp" />
         <link rel="preload" as="image" href="/laptop-sequence/frame_0004.webp" />
         <link rel="preload" as="image" href="/laptop-sequence/frame_0005.webp" />
+        <link rel="icon" href="/icon.png" type="image/png" />
       </head>
       <body className={`${inter.className} bg-void text-white antialiased`}>
         {/* Global floating navbar */}
