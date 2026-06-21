@@ -142,8 +142,10 @@ export default function HeroCopy({ phase, phaseProgress, showWorldText = false }
               transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="group relative mt-10 overflow-hidden rounded-full px-8 py-3.5 text-sm font-semibold text-white"
-              style={{
+              className="group relative mt-10 overflow-hidden rounded-full px-8 py-3.5 text-sm font-semibold text-white pointer-events-auto"
+              onClick={() => {
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+              }} style={{
                 border: '1px solid rgba(80,230,255,0.55)',
                 background: 'rgba(0,40,52,0.58)',
                 backdropFilter: 'blur(14px)',
