@@ -10,16 +10,16 @@ export function getFramePath(index: number): string {
   return `${FRAME_BASE_PATH}/${FRAME_PREFIX}${padded}.${FRAME_EXTENSION}`
 }
 
-// ─── Scroll Phase Breakpoints (0→1) ─────────────────────────────────────────
+// ─── Scroll Phase Breakpoints (0→1) ─────────────────────────────────────────//
 export const PHASES = {
-  INTRO:          { start: 0.00, end: 0.04 }, // static hold
-  OPENING:        { start: 0.04, end: 0.28 }, // lid lifts
-  KEYBOARD_GLOW:  { start: 0.28, end: 0.35 }, // backlight on
-  SCREEN_ON:      { start: 0.35, end: 0.48 }, // screen ignites
-  HOLOGRAPHIC:    { start: 0.48, end: 0.57 }, // UI overlays
-  ZOOM_IN:        { start: 0.57, end: 0.70 }, // camera zooms
-  FILL:           { start: 0.70, end: 0.76 }, // fills viewport
-  WORLD_REVEAL:   { start: 0.76, end: 1.00 }, // digital world
+  INTRO: { start: 0.00, end: 0.04 }, // static hold
+  OPENING: { start: 0.04, end: 0.28 }, // lid lifts
+  KEYBOARD_GLOW: { start: 0.28, end: 0.35 }, // backlight on
+  SCREEN_ON: { start: 0.35, end: 0.48 }, // screen ignites
+  HOLOGRAPHIC: { start: 0.48, end: 0.57 }, // UI overlays
+  ZOOM_IN: { start: 0.57, end: 0.70 }, // camera zooms
+  FILL: { start: 0.70, end: 0.76 }, // fills viewport
+  WORLD_REVEAL: { start: 0.76, end: 1.00 }, // digital world
 } as const
 
 export type PhaseName = keyof typeof PHASES
@@ -38,7 +38,7 @@ export const LENIS_DURATION = 1.4
 
 // ─── GSAP ─────────────────────────────────────────────────────────────────────
 export const SCRUB_DESKTOP = 1.8   // weighty, cinematic
-export const SCRUB_MOBILE  = 0.9   // snappier on mobile
+export const SCRUB_MOBILE = 0.9   // snappier on mobile
 
 // ─── Mobile ───────────────────────────────────────────────────────────────────
 export const MOBILE_BREAKPOINT = 768
