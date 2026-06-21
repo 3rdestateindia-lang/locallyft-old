@@ -22,12 +22,36 @@ export default function CTASection() {
   const [form, setForm] = useState({ name: '', phone: '', business: '' })
   const [submitted, setSubmitted] = useState(false)
   const [focused, setFocused] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!form.name || !form.phone) return
-    setSubmitted(true)
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        alert('Failed to submit form.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Something went wrong.');
+    } finally {
+      setLoading(false);
+    }
+
+  };
 
   return (
     <section
@@ -246,9 +270,30 @@ export default function CTASection() {
                     placeholder={field.placeholder}
                     required={field.required}
                     value={form[field.key as keyof typeof form]}
-                    onChange={e => setForm(prev => ({ ...prev, [field.key]: e.target.value }))}
+                    onChange={e => {
+                      let value = e.target.value
+
+                      if (field.key === 'phone') {
+                        value = value
+                          .replace(/[^\d+]/g, '') // allow only digits and +
+                          .replace(/(?!^)\+/g, '') // allow + only at beginning
+                          .slice(0, 16) // max length (+ + 15 digits)
+                      }
+
+                      setForm(prev => ({
+                        ...prev,
+                        [field.key]: value,
+                      }))
+                    }}
                     onFocus={() => setFocused(field.key)}
                     onBlur={() => setFocused(null)}
+                    pattern={field.key === 'phone' ? '^\\+?[0-9]{10,15}$' : undefined}
+                    inputMode={field.key === 'phone' ? 'numeric' : undefined}
+                    title={
+                      field.key === 'phone'
+                        ? 'Please enter a valid phone number (10-15 digits)'
+                        : undefined
+                    }
                     style={{
                       width: '100%',
                       padding: '13px 18px',
@@ -276,22 +321,40 @@ export default function CTASection() {
                   color: '#050505',
                   fontSize: 15,
                   fontWeight: 700,
-                  cursor: 'pointer',
+                  cursor: loading ? 'not-allowed' : 'pointer',
                   marginTop: 12,
                   boxShadow: '0 0 40px rgba(0,212,255,0.3)',
                   transition: 'all 0.3s ease',
-                  letterSpacing: '0.02em',
+                  opacity: loading ? 0.9 : 1,
                 }}
                 onMouseEnter={e => {
                   (e.currentTarget as HTMLElement).style.boxShadow = '0 0 60px rgba(0,212,255,0.5)'
-                  ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
+                    ; (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'
                 }}
                 onMouseLeave={e => {
                   (e.currentTarget as HTMLElement).style.boxShadow = '0 0 40px rgba(0,212,255,0.3)'
-                  ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+                    ; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
                 }}
-              >
-                Book Free Call Now →
+              >{loading ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 10,
+                  }}
+                >
+                  <div className="thinking-loader">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+
+                  <span>Booking Your Call...</span>
+                </div>
+              ) : (
+                'Book Free Call Now →'
+              )}
               </button>
 
               <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.25)', marginTop: 18, lineHeight: 1.6 }}>
@@ -311,6 +374,43 @@ export default function CTASection() {
           0%, 100% { transform: translate(0, 0) scale(1); }
           50% { transform: translate(-20px, 20px) scale(1.03); }
         }
+        .thinking-loader {
+  display: flex;
+  gap: 6px;
+}
+
+.thinking-loader span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.95);
+  animation: thinkingPulse 1.2s infinite ease-in-out;
+  box-shadow:
+    0 0 10px rgba(255,255,255,0.7),
+    0 0 20px rgba(255,255,255,0.4);
+}
+
+.thinking-loader span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.thinking-loader span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes thinkingPulse {
+  0%,
+  80%,
+  100% {
+    transform: scale(1);
+    opacity: 0.25;
+  }
+
+  40% {
+    transform: scale(1.8);
+    opacity: 1;
+  }
+}  
       `}</style>
     </section>
   )

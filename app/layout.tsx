@@ -16,6 +16,7 @@ const bodoni = Bodoni_Moda({
   style: ['normal', 'italic'],
   variable: '--font-bodoni',
   display: 'swap',
+  adjustFontFallback: false,
 })
 
 // Navbar is client-only (uses scroll + IntersectionObserver)
