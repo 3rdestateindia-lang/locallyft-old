@@ -248,7 +248,7 @@ export default function CTASection() {
 
               {[
                 { key: 'name', label: 'Your Name', placeholder: 'e.g. Dr. Sharma / Raj Patel', type: 'text', required: true },
-                { key: 'phone', label: 'WhatsApp / Phone Number', placeholder: '+91 98765 43210', type: 'tel', required: true },
+                { key: 'phone', label: 'WhatsApp / Phone Number', placeholder: '+91 70155 06160', type: 'tel', required: true },
                 { key: 'business', label: 'Business Type', placeholder: 'e.g. Dental Clinic, Grocery Store, Café...', type: 'text', required: false },
               ].map(field => (
                 <div key={field.key} style={{ marginBottom: 20 }}>

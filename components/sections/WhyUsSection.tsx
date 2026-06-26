@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 
 const STATS = [
-  { value: 50, suffix: '+', label: 'Websites Delivered' },
+  { value: 10, suffix: '+', label: 'Websites Delivered' },
   { value: 7, suffix: ' days', label: 'Average Launch Time' },
   { value: 98, suffix: '%', label: 'Client Satisfaction' },
   { value: 3, suffix: 'x', label: 'Avg. Traffic Growth' },
@@ -160,7 +160,7 @@ function VideoMockup() {
         borderRadius: '16px',
         background: 'rgba(255, 255, 255, 0.03)',
         border: '1px solid rgba(255, 255, 255, 0.08)',
-        boxShadow: hovered 
+        boxShadow: hovered
           ? '0 20px 50px rgba(0, 212, 255, 0.15), 0 0 30px rgba(123, 97, 255, 0.1)'
           : '0 10px 30px rgba(0, 0, 0, 0.5)',
         transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
