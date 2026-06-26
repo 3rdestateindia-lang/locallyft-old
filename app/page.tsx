@@ -7,14 +7,15 @@ const HeroCinematic = dynamic(
 )
 
 // Sections — loaded client-side for IntersectionObserver support
-const ServicesSection     = dynamic(() => import('@/components/sections/ServicesSection'),     { ssr: false })
-const ProcessSection      = dynamic(() => import('@/components/sections/ProcessSection'),      { ssr: false })
-const WhyUsSection        = dynamic(() => import('@/components/sections/WhyUsSection'),        { ssr: false })
-const PortfolioSection    = dynamic(() => import('@/components/sections/PortfolioSection'),    { ssr: false })
+const ServicesSection = dynamic(() => import('@/components/sections/ServicesSection'), { ssr: false })
+const AboutUsSection = dynamic(() => import('@/components/sections/AboutUsSection'), { ssr: false })
+const ProcessSection = dynamic(() => import('@/components/sections/ProcessSection'), { ssr: false })
+const WhyUsSection = dynamic(() => import('@/components/sections/WhyUsSection'), { ssr: false })
+const PortfolioSection = dynamic(() => import('@/components/sections/PortfolioSection'), { ssr: false })
 const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'), { ssr: false })
-const PricingSection      = dynamic(() => import('@/components/sections/PricingSection'),      { ssr: false })
-const CTASection          = dynamic(() => import('@/components/sections/CTASection'),          { ssr: false })
-const FooterSection       = dynamic(() => import('@/components/sections/FooterSection'),       { ssr: false })
+const PricingSection = dynamic(() => import('@/components/sections/PricingSection'), { ssr: false })
+const CTASection = dynamic(() => import('@/components/sections/CTASection'), { ssr: false })
+const FooterSection = dynamic(() => import('@/components/sections/FooterSection'), { ssr: false })
 
 export default function Home() {
   const jsonLd = {
@@ -44,6 +45,7 @@ export default function Home() {
       <TestimonialsSection />
       <PricingSection />
       <CTASection />
+      <AboutUsSection />
       <FooterSection />
     </main>
   )

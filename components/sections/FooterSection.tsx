@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { label: 'Portfolio', href: '#portfolio' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'Contact', href: '#contact' },
+  { label: 'About', href: '#about' },
 ]
 
 const SOCIAL_LINKS = [
